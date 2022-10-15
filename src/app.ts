@@ -1,12 +1,12 @@
-import express from "express";
-import { webhookCallback } from "grammy";
+import * as expressive from "https://raw.githubusercontent.com/NMathar/deno-express/master/mod.ts";
+import { webhookCallback } from "https://deno.land/x/grammy@v1.11.2/mod.ts";
 
-import { composer } from "./plugins/index.js";
-import { getBot } from "./bots.js";
+import { composer } from "./plugins/index.ts";
+import { getBot } from "./bots.ts";
 
-const app = express();
+const app = new expressive.App();
 
-app.use(express.json());
+app.use(expressive.bodyParser.json());
 
 app.use("/:botToken", (req, res) => {
     // Create an instance of the `Bot` class and pass your authentication token to it.
@@ -18,17 +18,13 @@ app.use("/:botToken", (req, res) => {
         bot.use(composer)
         // finally, register the webhook
         // https://t.me/c/1493653006/49880
-        return webhookCallback(bot, "express")(req, res);
+        return webhookCallback(bot)(req, res);
     }
     res.send("-_-");
 });
 
-app.listen(Number(process.env.PORT), () => {
-    console.log(
-        `Running on ${process.env.PORT}! Join https://t.me/c/1195659882/19121`
-    );
-});
-
+const server = await app.listen(3000);
+console.log("app listening on port " + server.port);
 // if you want to test locally,
 // comment above lines,
 // and, un-comment below line

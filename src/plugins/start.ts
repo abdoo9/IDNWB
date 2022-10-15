@@ -1,4 +1,4 @@
-import { Composer, InlineKeyboard } from "grammy";
+import { Composer, InlineKeyboard } from "https://deno.land/x/grammy@v1.11.2/mod.ts";
 
 export const composer = new Composer();
 

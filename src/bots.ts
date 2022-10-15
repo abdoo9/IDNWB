@@ -1,4 +1,4 @@
-import { Bot } from "grammy";
+import { Bot } from "https://deno.land/x/grammy@v1.11.2/mod.ts";
 
 const bots = new Map<string, Bot>();
 
