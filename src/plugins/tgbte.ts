@@ -1,6 +1,6 @@
 import { Composer, InlineKeyboard } from "https://deno.land/x/grammy@v1.11.2/mod.ts";
 import { getBot } from "../bots.ts";
-
+import "https://deno.land/std@0.159.0/dotenv/load.ts";
 const composer = new Composer();
 
 export default composer;
@@ -18,7 +18,7 @@ composer.on("msg:text").filter(
             if (bot) {
                 try {
                     // Make sure it is `https` not `http`!
-                    await bot.api.setWebhook(`${process.env.URL}/${bot_token}`);
+                    await bot.api.setWebhook(`${Deno.env.get("URL")}/${bot_token}`);
                 }
                 catch (e) {}
             }
